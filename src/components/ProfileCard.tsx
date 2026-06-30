@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import type { Platform, UserProfileSummary } from "@/types";
 import { VerifiedBadge } from "./VerifiedBadge";
+import { useSelectedProfilesStore } from "@/store/selectedProfilesStore";
+
 
 interface ProfileCardProps {
   profile: UserProfileSummary;
@@ -22,7 +24,7 @@ export function ProfileCard({
   onProfileClick,
 }: ProfileCardProps) {
   const navigate = useNavigate();
-
+  const addProfile = useSelectedProfilesStore((state) => state.addProfile);
   const handleClick = () => {
     if (onProfileClick) onProfileClick(profile.username);
     navigate(`/profile/${profile.username}?platform=${platform}`);
@@ -45,13 +47,16 @@ export function ProfileCard({
       </div>
       {/* TODO: candidates must implement Add to List feature */}
       {/* TODO: candidates must implement Add to List feature */}
-      <button
-        disabled
-        className="px-3 py-1 bg-gray-300 text-gray-500 text-sm rounded cursor-not-allowed"
-        onClick={(e) => e.stopPropagation()}
-      >
-        Add to List
-      </button>
+     
+    <button
+  className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
+  onClick={(e) => {
+    e.stopPropagation();
+    addProfile(profile);
+  }}
+>
+  Add to List
+</button>
     </div>
   );
 }
