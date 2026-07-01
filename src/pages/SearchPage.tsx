@@ -25,6 +25,10 @@ const selectedProfiles = useSelectedProfilesStore(
   (state) => state.selectedProfiles
 );
 
+const removeProfile = useSelectedProfilesStore(
+  (state) => state.removeProfile
+);
+
   const handleProfileClick = (username: string) => {
   console.log("Clicked profile:", username);
 };
@@ -88,9 +92,12 @@ const selectedProfiles = useSelectedProfilesStore(
     </div>
   </div>
 
-  <button className="text-red-500 hover:text-red-700">
-    ❌
-  </button>
+  <button
+  onClick={() => removeProfile(profile.user_id)}
+  className="text-red-500 hover:text-red-700"
+>
+  ❌
+</button>
 </div>
     ))}
   </div>
